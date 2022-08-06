@@ -1,10 +1,10 @@
 package com.mysite.sbb.Controller;
 
 import com.mysite.sbb.Dao.Article;
+import com.mysite.sbb.Dao.User;
 import com.mysite.sbb.Repository.ArticleRepository;
 import com.mysite.sbb.Repository.UserRepository;
 import com.mysite.sbb.Ut.Ut;
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +22,29 @@ public class ArticleController {
     private UserRepository userRepository;
 
     // C ======================================
+    @RequestMapping("/doWrite")
+    @ResponseBody
+    private String doWrite(String title, String body){
+        if(Ut.empty(title)){
+            return "제목을 입력해주세요.";
+        }
+        if(Ut.empty(body)){
+            return "내용을 입력해주세요.";
+        }
 
+        Article article = new Article();
+        article.setTitle(title);
+        article.setBody(body);
+        article.setRegDate(LocalDateTime.now());
+        article.setUpdateDate(LocalDateTime.now());
+        User user = userRepository.findById(1L).get();
+
+        article.setUser(user);
+
+        articleRepository.save(article);
+
+        return "%d번 게시물 생성이 완료되었습니다.".formatted(article.getId());
+    }
 
 
     // R ======================================
