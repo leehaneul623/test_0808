@@ -6,18 +6,19 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
 @Setter
-public class Article {
+@Entity
+public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private LocalDateTime regDate;
-    private LocalDateTime updateDate;
-    private String title;
-    private String body;
+    private Integer id;
+
+    @Column(columnDefinition = "TEXT")
+    private String content;
+
+    private LocalDateTime createDate;
 
     @ManyToOne
-    private User user;
+    private Question question;
 }

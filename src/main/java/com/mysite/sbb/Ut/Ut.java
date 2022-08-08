@@ -1,11 +1,11 @@
 package com.mysite.sbb.Ut;
 
 public class Ut {
-    public static boolean empty(Object obj){
-        if (obj == null){
+    public static boolean empty(Object obj) {
+        if (obj == null) {
             return true;
         }
-        if(obj instanceof String == false){
+        if (obj instanceof String == false) {
             return true;
         }
 
